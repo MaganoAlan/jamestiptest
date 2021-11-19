@@ -28,4 +28,19 @@ const Div = styled.div`
   justify-content: space-evenly;
 `;
 
-export { Card, Proditem, Cod, Div };
+const Actions = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin: 2%;
+`;
+
+const Modal = styled.div`
+  border-radius: 10px;
+  background-color: #fff;
+  padding: 1%;
+  text-align: end;
+`;
+
+export { Card, Proditem, Cod, Div, Actions, Modal };

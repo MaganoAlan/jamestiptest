@@ -16,7 +16,10 @@ const Header = styled.div`
   background-color: #000;
 `;
 
-const Content = styled.div``;
+const Content = styled.div`
+  max-width: 100vw;
+  max-height: 100vh;
+`;
 
 const Footer = styled.div`
   margin-top: 4%;
