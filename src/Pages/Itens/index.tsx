@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-
-import { Card, Cod, Div, Actions, Modal } from "./styles";
-
+//styles da Home para padronização
+//Optei por não utilizar o global styles devido ao tamanho da aplicação
+import { Card, Cod, Div, Actions, Modal, ModalButton } from "./styles";
 import { Container, Header, Content, Footer, Button, H1 } from "../Home/styles";
+//import dos ícones do react-icons
 import { MdDelete } from "react-icons/md";
 import { FaEdit } from "react-icons/fa";
 
@@ -16,9 +17,10 @@ const Itens: React.FC = () => {
   //testando state para o delete
   console.log(nameEsc);
   //state para exibir o modal
-  const [show, setShow] = useState(true);
+  const [showEdit, setShowEdit] = useState(true);
+  const [showDelete, setShowDelete] = useState(true);
   //states para editar produtos
-  //const [editCode, setEditCode] = useState('');
+  //é preciso digitar o código do produto a ser editado
   const [editCategory, setEditCategory] = useState("");
   const [editName, setEditName] = useState("");
   const [editProvider, setEditProvider] = useState("");
@@ -30,7 +32,7 @@ const Itens: React.FC = () => {
     function CheckIndex(index: any) {
       return index.Codigo === `${nameEsc}`;
     }
-    //chamada da função parar encontrar o index vvv
+    //chamada da função parar encontrar o index
     const ind = Produtos.findIndex(CheckIndex);
 
     console.log(`esse é o ind ${ind}`);
@@ -42,11 +44,16 @@ const Itens: React.FC = () => {
     localStorage.setItem("produtos", JSON.stringify(Produtos));
 
     console.log(Produtos);
+    //retorno visual ao usuário
+    window.alert(`Produto codigo ${nameEsc} excluído com sucesso!`);
 
     window.location.reload();
   }
   //function Editar produto
+  //é preciso digitar o código do produto a ser editado
   function HandleEdit() {
+    //objeto com valores a serem substituidos do objeto selecionado
+    //** o item: código não será alterado */
     let Editproduct = {
       Codigo: nameEsc,
       Categoria: editCategory,
@@ -55,23 +62,27 @@ const Itens: React.FC = () => {
       Valor: editValue,
     };
 
+    //buscando o código do produto a ser editado
     function CheckIndex(index: any) {
       return index.Codigo === `${nameEsc}`;
     }
-    //chamada da função parar encontrar o index vvv
+    //chamada da função parar encontrar o index do produto a ser editado
     const ind = Produtos.findIndex(CheckIndex);
 
     console.log(`esse é o ind antes ${ind}`);
-    //condicional ternário para evitar a exclusão acidental de algum item
+    //condicional ternário para evitar a exclusão acidental de algum item (último item
+    // no caso do retorno da função checkIndex for nula retornando -1)
+
     ind === -1
       ? window.alert("Código inexistente")
       : Produtos.splice(`${ind}`, 1, Editproduct);
     //salvando novo array no local storage
     localStorage.setItem("produtos", JSON.stringify(Produtos));
+    //log o objeto editado
     console.log(`Produtos após edição${Produtos}`);
-
+    // retorno visual ao usuário
     window.alert(`Produto codigo ${nameEsc} alterado com sucesso!`);
-
+    //atualização da página
     window.location.reload();
   }
 
@@ -94,34 +105,45 @@ const Itens: React.FC = () => {
         <p>
           <strong>Ações</strong>
         </p>
+
         <Actions>
-          <input
-            type="text"
-            placeholder="Digite o codigo do produto"
-            value={nameEsc}
-            onChange={(text) => setNameEsc(text.target.value.toUpperCase())}
-          />
+          <Modal className="delete" hidden={showDelete}>
+            <strong>Excluir Produto</strong>
+            <br />
+            <p>Digite o código do produto a ser excluído</p>
+            Código &nbsp;
+            <input
+              type="number"
+              placeholder="Codigo a ser excluído"
+              value={nameEsc}
+              onChange={(text) => setNameEsc(text.target.value.toUpperCase())}
+            />
+            <ModalButton onClick={HandleDelete}>Excluir</ModalButton>
+          </Modal>
           <MdDelete
             size={25}
             style={{ margin: "1%", cursor: "pointer" }}
-            onClick={HandleDelete}
+            onClick={() => {
+              setShowDelete(!showDelete);
+            }}
           />
           <FaEdit
             style={{ margin: "1%", cursor: "pointer" }}
             size={20}
             onClick={() => {
-              setShow(!show);
+              setShowEdit(!showEdit);
             }}
           />
-          <Modal className="edit" hidden={show}>
+          <Modal className="edit" hidden={showEdit}>
             <strong>Editar Produto</strong> &nbsp;
             <br />
             <br />
             Digite o código do produto a ser editado
             <br />
             <br />
-            Codigo &nbsp;
+            Código &nbsp;
             <input
+              type="number"
               placeholder="Produto a ser editado"
               value={nameEsc}
               onChange={(text) => setNameEsc(text.target.value.toUpperCase())}
@@ -151,16 +173,13 @@ const Itens: React.FC = () => {
             <br />
             Valor &nbsp;
             <input
+              type="number"
               value={editValue}
               onChange={(text) => setEditValue(text.target.value.toUpperCase())}
             />
             <br />
-            <div
-              onClick={() => {
-                setShow(!show);
-              }}
-            >
-              <button onClick={HandleEdit}>Salvar</button>
+            <div>
+              <ModalButton onClick={HandleEdit}>Salvar</ModalButton>
             </div>
           </Modal>
         </Actions>

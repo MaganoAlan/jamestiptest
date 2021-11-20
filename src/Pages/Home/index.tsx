@@ -5,15 +5,11 @@ import { Link } from "react-router-dom";
 import ProdCard from "../../Components/ProdCard";
 
 const Home: React.FC = () => {
-  function HandleClick() {
-    // window.location.reload();
-  }
-
   return (
     <Container>
       <Header>
         <H1>Cadastrar Produto</H1>
-        <Button onClick={HandleClick}>
+        <Button>
           <Link style={{ textDecoration: "none", color: "#000" }} to="/Itens">
             CONSULTAR ITENS
           </Link>
