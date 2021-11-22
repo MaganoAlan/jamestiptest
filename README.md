@@ -20,8 +20,7 @@ Libraries:
 
 ### Projeto
 
-A utilização do localStorage devido ao tamanho da aplicação, optei por salvar
-os dados em um objeto único "Produto" contendo todos os campos para ter menos
-volume de dados a tratar. Algumas funcionalidades foram postas em modais para
-deixar a aplicação mais fluida e menos poluída, o layout mais simples e clean
-o tema inspirado na página do James tip "https://jamestip.com/"
+O projeto foi desenvolvido com foco no usuário, intuitivo com telas limpas e de
+facil navegação, código limpo e legível seguindo padrões de boas práticas
+utilizando bibliotecas e frameworks mais utilizadas e solicitadas no desafio,
+com o objetivo de atender os requisitos de forma simples e direta.
