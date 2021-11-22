@@ -21,27 +21,9 @@ const Content = styled.div`
   max-height: 100vh;
 `;
 
-const Footer = styled.div`
-  margin-top: 4%;
-`;
-
-const Button = styled.button`
-  border: none;
-  background-color: #00d0b3;
-  border-radius: 4px;
-  margin: 1%;
-  padding: 8px;
-  font-weight: 700;
-  color: #fff;
-
-  :hover {
-    background-color: #64fce8;
-  }
-`;
-
 const H1 = styled.h1`
   color: #fff;
   font-weight: 800;
 `;
 
-export { Container, Header, Content, Footer, Button, H1 };
+export { Container, Header, Content, H1 };

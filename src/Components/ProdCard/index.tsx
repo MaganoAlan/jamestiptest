@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import DefaultButton from "../DefaultButton";
 
-import { Container, Input, Button } from "./styles";
+import { Container, Input } from "./styles";
 
 const ProdCard: React.FC = () => {
   const [productCode, setProductCode] = useState("");
@@ -8,6 +10,8 @@ const ProdCard: React.FC = () => {
   const [productName, setProductName] = useState("");
   const [productProvider, setProductProvider] = useState("");
   const [productValue, setPoductValue] = useState("");
+
+  const navigate = useNavigate();
 
   //log para testar os inputs
   console.log({
@@ -21,7 +25,7 @@ const ProdCard: React.FC = () => {
   //variável Codigos iniciada com o local storage atual ou array vazio
   let Codigos: any = JSON.parse(localStorage.getItem("produtos")!) || [];
 
-  function HandleClick() {
+  function handleClick() {
     //objeto do porduto a ser salvo
     const Produto = {
       Codigo: productCode,
@@ -36,7 +40,7 @@ const ProdCard: React.FC = () => {
     localStorage.setItem("produtos", JSON.stringify(Codigos));
     //Retorno visual ao usuário
     window.alert(`Produto cadastrado com sucesso!`);
-    //Reload para atualizar a página
+    navigate("/");
     window.location.reload();
   }
 
@@ -75,9 +79,7 @@ const ProdCard: React.FC = () => {
         value={productValue}
         onChange={(n) => setPoductValue(n.target.value)}
       />
-      <Button type="button" onClick={HandleClick}>
-        CADASTRAR
-      </Button>
+      <DefaultButton title={"CADASTRAR"} secondary onClick={handleClick} />
     </Container>
   );
 };

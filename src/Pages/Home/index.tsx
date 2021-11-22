@@ -1,24 +1,18 @@
 import React from "react";
-
-import { Container, Header, Content, Footer, Button, H1 } from "./styles";
-import { Link } from "react-router-dom";
-import ProdCard from "../../Components/ProdCard";
+import { Container, Header, Content, H1 } from "./styles";
+import ProdCard from "../../components/ProdCard";
+import DefaultButton from "../../components/DefaultButton";
 
 const Home: React.FC = () => {
   return (
     <Container>
       <Header>
         <H1>Cadastrar Produto</H1>
-        <Button>
-          <Link style={{ textDecoration: "none", color: "#000" }} to="/Itens">
-            CONSULTAR ITENS
-          </Link>
-        </Button>
+        <DefaultButton title={"Voltar"} to={"/"} />
       </Header>
       <Content>
         <ProdCard />
       </Content>
-      <Footer>Desenvolvido por Alan Magano</Footer>
     </Container>
   );
 };
